@@ -7,7 +7,7 @@ const { initData } = require('./app/utils/initFunctions');
 const PORT = 42000;
 
 var corsOptions = {
-  origin: ['http://localhost:42030'],
+  origin: '*',
   // methods: ['POST', 'PUT', 'GET', 'OPTIONS', 'HEAD'],
   credentials: true
 }
@@ -35,6 +35,8 @@ app.get('/', async (req, res) => {
 // require('./app/routes/alayon.routes')(app);
 // require('./app/routes/noapp.routes')(app);
 require('./app/routes/auth.routes')(app);
+require('./app/routes/location.routes')(app);
+
 
 app.listen(PORT, function() {
   console.log(`Listening on ${PORT}`);

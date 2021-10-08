@@ -24,7 +24,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', async (req, res) => {
-  res.send('Hello World!');
+  res.send('ALAYON API');
 });
 
 //ROuters 

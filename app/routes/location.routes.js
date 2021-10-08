@@ -17,7 +17,7 @@ module.exports = function(app) {
 
 
 //GET
-app.get(
+app.post(
   "/pusher/auth",
   controller.pusherAuth
 )

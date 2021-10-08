@@ -19,7 +19,6 @@ exports.signup = async (req, res) => {
 
  const user = new User(req.body);
 
-
     await user.save()
     .then(docs => {
         return res.cookie('authToken', docs.accessToken).status(200).json(docs)

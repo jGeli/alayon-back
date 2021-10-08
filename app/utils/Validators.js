@@ -11,6 +11,14 @@ const isEmail = (email) => {
     else return false;
   };
 
+  const isNotLogin = (string) => {
+    console.log(string)
+    let logins = ['googleId', 'facebookId', 'mobile'];
+      let ind = logins.indexOf(string);
+      if(ind === -1) return true;
+      else return false;
+  };
+
   exports.validateSignupData = (data) => {
     let errors = {};
     if (isEmpty(data.firstName)) errors.firstName = 'Must not be empty';
@@ -30,8 +38,11 @@ const isEmail = (email) => {
   exports.validateLoginData = (data) => {
     let errors = {};
   
-    if (isEmpty(data.email)) errors.email = 'Must not be empty';
-    if (isEmpty(data.password)) errors.password = 'Must not be empty';
+    if (isEmpty(data.id)) errors.id = 'ID Must not be empty';
+    if (isEmpty(data.type)) errors.type = 'User type must not be empty';
+    if (isNotLogin(data.loginType)) errors.loginType = 'Login type must be valid';
+    if (isEmpty(data.loginType)) errors.loginType = 'Login type must not be empty';
+
   
     return {
       errors,

@@ -7,31 +7,24 @@ const { UserType } = require('./userType.model');
 // const { staticUrl } = require('../config/url.config');
 
 const userSchema = mongoose.Schema({
- email: {
- type: String,
- required: [true,'The email field is required!'],
- trim: true,
- },
- password: {
- type: String,
- required: [true,'The password field is required!'],
- minlength: 5
- },
  firstName: {
  type: String,
- trim: true,
  maxlength: 100
 },
  lastName: {
  type: String,
- trim: true,
  maxlength: 100
+},
+googleId: String,
+facebookId: String,
+mobile: {
+  type: String,
+  maxlength: 9
 },
 userType: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "UserType"
 },
-
  accessToken: {
  type: String
  },
@@ -46,24 +39,9 @@ userType: {
 //saving user data
 userSchema.pre('save', function (next) {
  var user = this;
- if (user.isModified('password')) {//checking if password field is available and modified
- bcrypt.genSalt(SALT, function (err, salt) {
- if (err) return next(err)
- bcrypt.hash(user.password, salt, async function (err, hash) {
- if (err) return next(err)
- console.log(process.env.SECRET)
- let userType = await UserType.findOne({name: 'user'});
- user.userType = userType
- user.password = hash;
  var accessToken = jwt.sign(user._id.toHexString(), process.env.SECRET);
  user.accessToken = accessToken;   
-
  next();
-});
-});
-} else {
- next();
- }
 });
 
 

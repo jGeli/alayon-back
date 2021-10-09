@@ -16,7 +16,7 @@ exports.signin = async (req, res) => {
     if(!usrType) return res.status(400).json({message: 'Something went wrong!'});
     let myUser = await User.findOne({ [loginType]: id}).populate('userType');
     if(!myUser){
-        const user = new User({[loginType]: id, userType: usrType});
+        const user = new User({[loginType]: id, userType: usrType, ...req.body});
         await user.save()
         .then(docs => {
             return res.cookie('authToken', docs.accessToken).status(200).json(docs)

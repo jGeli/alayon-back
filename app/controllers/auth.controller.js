@@ -14,7 +14,7 @@ exports.signin = async (req, res) => {
     let usrType = await UserType.findOne({name: type});
     console.log(usrType)
     if(!usrType) return res.status(400).json({message: 'Something went wrong!'});
-    let myUser = await User.findOne({ $or: [{facebookId: id }, {googleId: id}, {mobile: id}]});
+    let myUser = await User.findOne({ [loginType]: id});
     if(!myUser){
         const user = new User({[loginType]: id, userType: usrType});
         await user.save()

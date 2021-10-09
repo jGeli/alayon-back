@@ -72,7 +72,7 @@ userSchema.statics.findByToken = function (accessToken, callBack) {
  var user = this;
  jwt.verify(accessToken, process.env.SECRET, function (err, decode) {//this decode must give user_id if accessToken is valid .ie decode=user_id
   user.findOne({_id: decode, accessToken: accessToken }, { password: 0 }, function (err, usr) {
-    user.populate('')
+    usr.populate('userType');
    if(usr){
     delete usr.password;
    }

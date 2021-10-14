@@ -38,6 +38,6 @@ require('./app/routes/auth.routes')(app);
 require('./app/routes/location.routes')(app);
 
 
-app.listen(PORT, function() {
+app.listen(process.env.PORT || PORT, function() {
   console.log(`Listening on ${PORT}`);
 });

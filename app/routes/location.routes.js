@@ -23,4 +23,9 @@ app.post(
 )
 
 
+app.get(
+  "/location/destination",
+  controller.getDestination
+)
+
 }

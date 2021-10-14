@@ -1,4 +1,8 @@
 const Pusher = require('pusher');
+const axios = require('axios');
+const { polylineDecode } = require('../utils/helpers');
+let apiUrl = "https://maps.googleapis.com/maps/api/directions/json?mode=driving&origin=11.231844509010555,125.00268012285233&destination=11.180794931842055,125.00159816449857&key=AIzaSyDPrjF6BhygS3aEUmn58R9ZNLz_XBMRTG4"
+
 
 let pusher = new Pusher({
     appId: '1279433',
@@ -33,4 +37,49 @@ exports.updateLocation = (req, res) => {
         'location': req.body.location
     })
     res.json({ 'status': 200 });
+}
+
+exports.getCurrentLocation = (req, res) => {
+    console.log('wewew')
+    // trigger a new location update event via pusher
+    pusher.trigger('presence-channel', 'location-update', {
+        'username': req.body.username,
+        'location': req.body.location
+    })
+    res.json({ 'status': 200 });
+}
+
+
+exports.getDestination = (req, res) => {
+    axios.get(apiUrl)
+  .then((response) => {
+    console.log(response.data.routes[0].overview_polyline)
+    let polsArr = [];
+    let stps = response.data.routes[0].legs[0].steps
+
+//   for (let i = 0; i < stps.length; i++) {
+//        let rs = polylineDecode(stps[i].polyline.points);
+//        rs.forEach(a => {
+//             polsArr.push({ lat: a[0], lng: a[1] })
+//        })
+//   }
+
+
+    let polId = response.data.routes[0].overview_polyline.points;
+    // console.log(polId)
+    let rs = polylineDecode(polId);
+    // console.log(rs)
+
+
+    // let rs = polylineDecode(stps[i].polyline.points);
+    rs.forEach(a => {
+         polsArr.push({ lat: a[0], lng: a[1] })
+    })
+
+    res.status(200).json({data: response.data, polyline: polsArr})
+  })
+  .catch(err => {
+      console.log(err)
+    res.status(400).send(err)
+  })
 }

@@ -19,21 +19,6 @@ const isEmail = (email) => {
       else return false;
   };
 
-  exports.validateSignupData = (data) => {
-    let errors = {};
-    if (isEmpty(data.firstName)) errors.firstName = 'Must not be empty';
-    if (isEmpty(data.lastName)) errors.lastName = 'Must not be empty';
-    if (isEmpty(data.email)) {
-      errors.email = 'Must not be empty';
-    } else if (!isEmail(data.email)) {
-      errors.email = 'Must be a valid email address';
-    }
-    if (isEmpty(data.password)) errors.password = 'Must not be empty';
-    return {
-      errors,
-      valid: Object.keys(errors).length === 0 ? true : false
-    };
-  };
 
   exports.validateLoginData = (data) => {
     let errors = {};
@@ -44,6 +29,22 @@ const isEmail = (email) => {
     if (isEmpty(data.loginType)) errors.loginType = 'Login type must not be empty';
 
   
+    return {
+      errors,
+      valid: Object.keys(errors).length === 0 ? true : false
+    };
+  };
+
+
+  exports.validateSetupData = (data) => {
+    let errors = {};
+    
+    if (isEmpty(data.id)) errors.id = 'ID Must not be empty';
+    if (isEmpty(data.type)) errors.type = 'User type must not be empty';
+    if (isNotLogin(data.loginType)) errors.loginType = 'Login type must be valid';
+    if (isEmpty(data.loginType)) errors.loginType = 'Login type must not be empty';
+
+    
     return {
       errors,
       valid: Object.keys(errors).length === 0 ? true : false

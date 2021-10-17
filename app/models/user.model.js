@@ -28,7 +28,25 @@ userType: {
  accessToken: {
  type: String
  },
-
+actions: {
+  details: {
+    type: Boolean,
+    default: false
+  },
+  services: {
+    type: Boolean,
+    default: false
+  },
+  pricing: {
+    type: Boolean,
+    default: false
+  },
+  hint: {
+    type: Boolean,
+    default: false
+  } 
+},
+imgUrl: String
 },{
   timestamps: true
 });

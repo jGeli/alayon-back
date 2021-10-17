@@ -28,4 +28,9 @@ app.get(
   controller.getDestination
 )
 
+app.get(
+  "/api/location/current/:lat/:lng",
+  controller.getCurrentLocation
+)
+
 }

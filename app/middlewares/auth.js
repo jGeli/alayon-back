@@ -4,7 +4,6 @@ const authJwt = (req, res, next) => {
   
 
  let accessToken = req.headers.cookie && req.headers.cookie.split('authToken=')[1];
- console.log(accessToken)
  if (
     req.headers.authorization
      && req.headers.authorization.startsWith('Bearer ')
@@ -13,7 +12,10 @@ const authJwt = (req, res, next) => {
 
    let idToken = req.headers.authorization.split('Bearer ')[1];
     User.findByToken(idToken, async (err, user) => {
-         if (err) throw err;
+        console.log(err)
+        console.log(user)  
+      if (err) throw err;
+        
          if (!user) return res.status(400).json({ message: "Unauthorized!", isAuth: false, error: true })
         
          User.populate(user, 'userType').then((usr) => {

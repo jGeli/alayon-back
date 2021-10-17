@@ -1,8 +1,8 @@
+require('dotenv').config()
 const Pusher = require('pusher');
 const axios = require('axios');
 const { polylineDecode } = require('../utils/helpers');
-let apiUrl = "https://maps.googleapis.com/maps/api/directions/json?mode=driving&origin=11.231844509010555,125.00268012285233&destination=11.180794931842055,125.00159816449857&key=AIzaSyDPrjF6BhygS3aEUmn58R9ZNLz_XBMRTG4"
-
+let apiUrl = "https://maps.googleapis.com/maps/api/directions/json?mode=driving&origin=11.231844509010555,125.00268012285233&destination=11.222280997076894,124.99888843878803&key=AIzaSyDPrjF6BhygS3aEUmn58R9ZNLz_XBMRTG4"
 
 let pusher = new Pusher({
     appId: '1279433',
@@ -11,7 +11,6 @@ let pusher = new Pusher({
     cluster: 'ap1',
     useTLS: true
 });
-
 
 exports.pusherAuth = (req, res) => {
     console.log('auth')
@@ -40,13 +39,17 @@ exports.updateLocation = (req, res) => {
 }
 
 exports.getCurrentLocation = (req, res) => {
-    console.log('wewew')
-    // trigger a new location update event via pusher
-    pusher.trigger('presence-channel', 'location-update', {
-        'username': req.body.username,
-        'location': req.body.location
+    const { lat, lng } = req.params;
+    console.log(process.env.map_key)
+    axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${process.env.map_key}`)
+    .then((response) => {
+        let results = response.data ? response.data.results : [];
+     return res.status(200).json(results)
     })
-    res.json({ 'status': 200 });
+    .catch(err => {
+        console.log(err)
+        return res.status(400).send(err)
+    })
 }
 
 

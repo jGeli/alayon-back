@@ -1,4 +1,5 @@
-const controller = require("../controllers/noapp.controller");
+const controller = require("../controllers/store.controller");
+
 
 module.exports = function(app) {
   app.use(function(req, res, next) {
@@ -7,5 +8,7 @@ module.exports = function(app) {
   });
 
 
+//POST
 
-  }
+
+}

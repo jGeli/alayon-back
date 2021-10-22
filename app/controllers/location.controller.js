@@ -2,7 +2,9 @@ require('dotenv').config()
 const Pusher = require('pusher');
 const axios = require('axios');
 const { polylineDecode } = require('../utils/helpers');
-let apiUrl = "https://maps.googleapis.com/maps/api/directions/json?mode=driving&origin=11.231844509010555,125.00268012285233&destination=11.222280997076894,124.99888843878803&key=AIzaSyDPrjF6BhygS3aEUmn58R9ZNLz_XBMRTG4"
+let apiUrl = "https://maps.googleapis.com/maps/api/directions/json?mode=driving&origin=11.231740819531705,125.00249369526583&destination=11.20556360502487,125.00355796170336&key=AIzaSyDPrjF6BhygS3aEUmn58R9ZNLz_XBMRTG4"
+
+
 
 let pusher = new Pusher({
     appId: '1279433',

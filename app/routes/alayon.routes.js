@@ -1,4 +1,4 @@
-const { verifySignUp } = require("../middlewares");
+const upload = require('../middlewares/upload');
 const controller = require("../controllers/alayon.controller");
 
 module.exports = function(app) {
@@ -7,19 +7,11 @@ module.exports = function(app) {
     next();
   });
 
-
-//POST
 app.post(
-  "/api/auth/signup",
-    [verifySignUp.checkDuplicateEmail],
-  controller.signup
+  "/api/upload/merchant",
+  [upload('image')],
+  controller.uploadImage
 );
-
-  app.post(
-    "/api/auth/signin",
-    controller.signin
-  );
-
 
 
 }

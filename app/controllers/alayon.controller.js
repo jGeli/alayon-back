@@ -4,7 +4,6 @@ const { User } = require('../models/user.model');
 const {
     validateSignupData,
     validateLoginData,
-    validateMobileSignupData
   } = require("../utils/Validators");
 
 
@@ -59,4 +58,25 @@ if (!user) {
 });
  }
 });
+}
+
+
+exports.uploadImage = (req, res) => {
+
+    console.log(req)
+
+
+
+
+
+
+
+return res.send({message: 'Success'})
+
+
+
+    
+
+
+
 }

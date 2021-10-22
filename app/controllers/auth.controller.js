@@ -1,5 +1,10 @@
+require("dotenv").config();
 const { User } = require('../models/user.model');
 const { UserType } = require('../models/userType.model');
+const multer = require("multer");
+var AWS = require("aws-sdk");
+var storage = multer.memoryStorage();
+var upload = multer({ storage: storage });
 
 
 const {
@@ -43,5 +48,16 @@ exports.getAuth = async (req, res) => {
     
     console.log(req.user)
     return res.status(200).json(req.user);
+
+}
+
+
+exports.uploadImage =  async (req, res) => {
+        console.log('wewewe')
+    const file = req.file;
+        console.log(file)
+        
+    res.status(200).json(file);
+
 
 }

@@ -33,30 +33,11 @@ app.get('/', async (req, res) => {
 // app.use('/api/alyn', AlayonRoute);
 // app.use('/api/noapp', NoAppRoute);
 // require('./app/routes/alayon.routes')(app);
-// require('./app/routes/noapp.routes')(app);
+// require('./app/routes/alayon.routes')(app);
 require('./app/routes/auth.routes')(app);
-require('./app/routes/store.routes')(app);
 require('./app/routes/location.routes')(app);
+require('./app/routes/merchant.routes')(app);
 
-const solverer = () => {
-  let error = {};
-
-  error.password = 'Incorrect Password';
-  error.name = 'Invalid Name';
-  error.password = 'Invalid Char';
-
-
-    let errors = ['Invalid name', 'Incorrect Password', 'must be 15 char'];
-  let ans = error.name;
-
-
-  //Find Password Error;
-  console.log(error)
-
-
-}
-
-solverer();
 
 app.listen(process.env.PORT || PORT, function() {
   console.log(`Listening on ${PORT}`);

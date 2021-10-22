@@ -1,6 +1,6 @@
 const controller = require("../controllers/auth.controller");
 const { authJwt } = require("../middlewares/auth");
-
+const upload = require('../middlewares/upload');
 
 
 module.exports = function(app) {
@@ -16,6 +16,14 @@ module.exports = function(app) {
     "/api/auth/signin",
     controller.signin
   );
+
+  app.post(
+    "/api/auth/upload",
+    [upload.single('file')],
+    controller.uploadImage
+  );
+  
+
 
 
 //GET
